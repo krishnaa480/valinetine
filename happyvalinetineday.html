@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine?</title>
+    <style>
+
+        @font-face {
+            font-family:"puggu";
+            src: url('../fonts/Lovelikethis-YxqO.otf');
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #ffebee;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            font-family: "puggu";
+            
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 2rem;
+            /* Smaller font size for mobile */
+            color: #d32f2f;
+            margin: 0 10px;
+            letter-spacing: 2px;
+            /* Add margin for small screens */
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 15px 30px;
+            /* Larger buttons for mobile */
+            font-size: 1.2rem;
+            margin: 0 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        #yesButton {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        #noButton {
+            background-color: #f44336;
+            color: white;
+            position: relative;
+        }
+
+        #message {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            /* Smaller font size for mobile */
+            color: #d32f2f;
+            display: none;
+            letter-spacing: 2px;
+        }
+
+        .balloon {
+            position: absolute;
+            font-size: 2rem;
+            color: #d32f2f;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+            25% {
+                transform: translate(50px, -50px);
+            }
+            50% {
+                transform: translate(-50px, 50px);
+            }
+            75% {
+                transform: translate(50px, 50px);
+            }
+        }
+
+        @keyframes explode {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(3);
+                opacity: 0;
+            }
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ff4081;
+            animation: confetti-fall 2s linear infinite;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Will You Be My Valentine?</h1>
+        <div class="buttons">
+            <button id="yesButton">Yes</button>
+            <button id="noButton">No</button>
+        </div>
+        <div id="message">
+            Mujhe Maaloom tha tum yes krogi💖<br> Let's meet today at <strong>Zoom Meeting</strong> at <strong>10:00 PM</strong>.
+        </div>
+        <!-- Balloons -->
+        <div class="balloon" style="top: 10%; left: 20%;">🎈</div>
+        <div class="balloon" style="top: 30%; left: 70%;">🎈</div>
+        <div class="balloon" style="top: 50%; left: 40%;">🎈</div>
+        <div class="balloon" style="top: 70%; left: 10%;">🎈</div>
+        <div class="balloon" style="top: 90%; left: 60%;">🎈</div>
+    </div>
+
+    <script>
+        const noButton = document.getElementById('noButton');
+        const yesButton = document.getElementById('yesButton');
+        const message = document.getElementById('message');
+
+        // Function to move the "No" button
+        const moveNoButton = () => {
+            const x = Math.random() * 80 - 40; // Smaller movement range for mobile
+            const y = Math.random() * 80 - 40; // Smaller movement range for mobile
+            noButton.style.transform = `translate(${x}px, ${y}px)`;
+        };
+
+        // Add event listeners for both mouse and touch events
+        noButton.addEventListener('mouseover', moveNoButton);
+        noButton.addEventListener('touchstart', moveNoButton);
+
+        noButton.addEventListener('click', () => {
+            // Reset the button's position if clicked
+            noButton.style.transform = 'translate(0, 0)';
+        });
+
+        yesButton.addEventListener('click', () => {
+            // Show the message
+            message.style.display = 'block';
+            document.querySelector('.buttons').style.display = 'none';
+
+            // Surprise animation: Balloons explode and confetti falls
+            const balloons = document.querySelectorAll('.balloon');
+            balloons.forEach(balloon => {
+                balloon.style.animation = 'explode 1s forwards';
+            });
+
+            // Add confetti
+            for (let i = 0; i < 50; i++) { // Fewer confetti for mobile performance
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = `${Math.random() * 100}vw`;
+                confetti.style.animationDelay = `${Math.random() * 2}s`;
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                document.body.appendChild(confetti);
+            }
+        });
+    </script>
+</body>
+
+</html>
